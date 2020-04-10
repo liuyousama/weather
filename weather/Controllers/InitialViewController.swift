@@ -30,6 +30,13 @@ class InitialViewController: UIViewController {
             }
         }
     }
+    var weekWeatherViewModel:WeekWeatherViewModel {
+        didSet {
+            DispatchQueue.main.async {
+                self.updateUI()
+            }
+        }
+    }
     
     // MARK: - UI相关的属性
     @IBOutlet weak var currentWeatherContainer: UIView!
@@ -43,6 +50,7 @@ class InitialViewController: UIViewController {
     @IBOutlet weak var errorText: UILabel!
     @IBAction func clickedLocBtn(_ sender: UIButton) {pressedLocationBtn(btn: sender)}
     @IBAction func clickedSettingBtn(_ sender: UIButton) {pressedSettingBtn(btn: sender)}
+    @IBOutlet weak var tableView: UITableView!
     // MARK: - 生命周期方法
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,6 +67,7 @@ class InitialViewController: UIViewController {
     // MARK: - 初始化方法
     required init?(coder: NSCoder) {
         currentWeatherViewModel = CurrentWeatherViewModel()
+        weekWeatherViewModel = WeekWeatherViewModel()
         super.init(coder: coder)
     }
 }
@@ -67,18 +76,19 @@ class InitialViewController: UIViewController {
 extension InitialViewController: WeatherApiDelegate {
     func requestSuccess(weatherData: WeatherData) {
         currentWeatherViewModel.currentWeatherData = weatherData.currently
+        weekWeatherViewModel.weekWeatherData = weatherData.daily
     }
     
     func requestError(error: Error) {
-        print(error)
-        loadingIndicator.stopAnimating()
-        errorText.isHidden = false
+        DispatchQueue.main.async {
+            self.showErrorInfo()
+        }
     }
     
     func handleDataError(error: Error) {
-        print(error)
-        loadingIndicator.stopAnimating()
-        errorText.isHidden = false
+        DispatchQueue.main.async {
+            self.showErrorInfo()
+        }
     }
     
     func receiveEmptyData() {
@@ -166,8 +176,15 @@ extension InitialViewController {
         loadingIndicator.hidesWhenStopped = true
     }
     
+    private func showErrorInfo() {
+        errorText.isHidden = false
+        currentWeatherContainer.isHidden = true
+        loadingIndicator.stopAnimating()
+    }
+    
     private func updateUI() {
         let vm1 = currentWeatherViewModel
+        let vm2 = weekWeatherViewModel
         
         if vm1.dataIsReady {
             currentWeatherIcon.image = vm1.icon
@@ -178,8 +195,14 @@ extension InitialViewController {
             cityName.text = vm1.cityName
             errorText.isHidden = true
             loadingIndicator.stopAnimating()
-            currentWeatherContainer.isHidden = true
+            currentWeatherContainer.isHidden = false
         }
+        
+        if vm2.isDataReady {
+            tableView.reloadData()
+            dump(vm2.weekWeatherData)
+        }
+        
     }
     
     

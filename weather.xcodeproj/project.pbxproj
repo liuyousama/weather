@@ -27,6 +27,7 @@
 		9EE66638243E172A00749556 /* WeatherNetworkApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE66637243E172A00749556 /* WeatherNetworkApi.swift */; };
 		9EECF93C2440473100F7CC61 /* WeekWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECF93B2440473100F7CC61 /* WeekWeatherTableViewCell.swift */; };
 		9EECF94024404F2C00F7CC61 /* weekWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECF93F24404F2C00F7CC61 /* weekWeatherViewModel.swift */; };
+		9EECF9422440952F00F7CC61 /* InitialViewController+Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECF9412440952F00F7CC61 /* InitialViewController+Table.swift */; };
 		9EF1EE29243F1DDC00E89A3D /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF1EE28243F1DDC00E89A3D /* Double+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -74,6 +75,7 @@
 		9EE66637243E172A00749556 /* WeatherNetworkApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNetworkApi.swift; sourceTree = "<group>"; };
 		9EECF93B2440473100F7CC61 /* WeekWeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekWeatherTableViewCell.swift; sourceTree = "<group>"; };
 		9EECF93F24404F2C00F7CC61 /* weekWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weekWeatherViewModel.swift; sourceTree = "<group>"; };
+		9EECF9412440952F00F7CC61 /* InitialViewController+Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "InitialViewController+Table.swift"; sourceTree = "<group>"; };
 		9EF1EE28243F1DDC00E89A3D /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				9EE665F8243DDF6900749556 /* InitialViewController.swift */,
+				9EECF9412440952F00F7CC61 /* InitialViewController+Table.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				9EE66628243DE48300749556 /* Location.swift in Sources */,
 				9EE665F7243DDF6900749556 /* SceneDelegate.swift in Sources */,
 				9EC6E82A243F6F2E007728CE /* currentWeatherViewModel.swift in Sources */,
+				9EECF9422440952F00F7CC61 /* InitialViewController+Table.swift in Sources */,
 				9EE66636243E170B00749556 /* NetworkTool.swift in Sources */,
 				9EE66638243E172A00749556 /* WeatherNetworkApi.swift in Sources */,
 				9EECF93C2440473100F7CC61 /* WeekWeatherTableViewCell.swift in Sources */,

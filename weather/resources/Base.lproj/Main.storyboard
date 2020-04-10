@@ -116,7 +116,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PL7-JB-L0X">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PL7-JB-L0X">
                                 <rect key="frame" x="0.0" y="344" width="414" height="518"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -139,6 +139,12 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6℃ - 13℃" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eD-8b-02i">
+                                                    <rect key="frame" x="20" y="76" width="187" height="27"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Mn-g7-QOx">
                                                     <rect key="frame" x="336" y="11" width="58" height="58"/>
                                                     <constraints>
@@ -152,15 +158,17 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6℃ - 13℃" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5eD-8b-02i">
-                                                    <rect key="frame" x="20" y="76" width="187" height="27"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="22"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DkA-GA-cCC">
+                                                    <rect key="frame" x="20" y="113" width="394" height="1"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="KWi-uE-HIJ"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="SJq-Ww-z26" firstAttribute="trailing" secondItem="pvO-mv-lYh" secondAttribute="trailingMargin" id="3Uq-eW-eB7"/>
+                                                <constraint firstItem="DkA-GA-cCC" firstAttribute="leading" secondItem="pvO-mv-lYh" secondAttribute="leading" constant="20" id="5og-5C-vcw"/>
                                                 <constraint firstItem="xFL-aN-pgr" firstAttribute="leading" secondItem="pvO-mv-lYh" secondAttribute="leadingMargin" id="9JL-D0-xZr"/>
                                                 <constraint firstItem="xFL-aN-pgr" firstAttribute="top" secondItem="Sq1-IO-dL9" secondAttribute="bottom" constant="8" id="Exp-HU-Ojs"/>
                                                 <constraint firstItem="SJq-Ww-z26" firstAttribute="bottom" secondItem="pvO-mv-lYh" secondAttribute="bottomMargin" id="Kd7-bn-Nlj"/>
@@ -169,15 +177,28 @@
                                                 <constraint firstItem="5eD-8b-02i" firstAttribute="bottom" secondItem="pvO-mv-lYh" secondAttribute="bottomMargin" id="SJT-y9-pJp"/>
                                                 <constraint firstItem="Sq1-IO-dL9" firstAttribute="top" secondItem="pvO-mv-lYh" secondAttribute="topMargin" id="ae4-tp-hYo"/>
                                                 <constraint firstItem="6Mn-g7-QOx" firstAttribute="leading" secondItem="xFL-aN-pgr" secondAttribute="trailing" id="ec6-Ci-zUD"/>
+                                                <constraint firstAttribute="trailing" secondItem="DkA-GA-cCC" secondAttribute="trailing" id="f8y-jP-cS1"/>
                                                 <constraint firstItem="5eD-8b-02i" firstAttribute="leading" secondItem="pvO-mv-lYh" secondAttribute="leadingMargin" id="gqz-u8-4qg"/>
                                                 <constraint firstItem="SJq-Ww-z26" firstAttribute="leading" secondItem="5eD-8b-02i" secondAttribute="trailing" id="gzq-0S-EEE"/>
                                                 <constraint firstItem="6Mn-g7-QOx" firstAttribute="leading" secondItem="Sq1-IO-dL9" secondAttribute="trailing" id="jp0-M5-aSx"/>
+                                                <constraint firstAttribute="bottom" secondItem="DkA-GA-cCC" secondAttribute="bottom" id="lbE-oR-ld7"/>
                                                 <constraint firstItem="6Mn-g7-QOx" firstAttribute="trailing" secondItem="pvO-mv-lYh" secondAttribute="trailingMargin" id="oIG-9z-erU"/>
                                                 <constraint firstItem="Sq1-IO-dL9" firstAttribute="leading" secondItem="pvO-mv-lYh" secondAttribute="leadingMargin" id="rGd-KE-lVR"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="dayTime" destination="xFL-aN-pgr" id="Vlt-jA-GSF"/>
+                                            <outlet property="humidity" destination="SJq-Ww-z26" id="lME-bO-s6w"/>
+                                            <outlet property="icon" destination="6Mn-g7-QOx" id="bnC-NP-IOG"/>
+                                            <outlet property="temperatureLabel" destination="5eD-8b-02i" id="jnb-lI-FqX"/>
+                                            <outlet property="weekTime" destination="Sq1-IO-dL9" id="nVE-Sc-ndO"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="i3I-Wy-cow"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="81X-4l-nc3"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -207,6 +228,7 @@
                         <outlet property="currentWeatherSummary" destination="f6L-19-CcE" id="PLp-p3-iTZ"/>
                         <outlet property="errorText" destination="aUB-py-Zj7" id="KqG-gd-c2j"/>
                         <outlet property="loadingIndicator" destination="pgl-NV-Ocg" id="eM9-sQ-KBh"/>
+                        <outlet property="tableView" destination="PL7-JB-L0X" id="aEz-EP-Ixq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
