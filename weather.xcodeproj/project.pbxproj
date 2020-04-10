@@ -25,6 +25,8 @@
 		9EE66634243E16F000749556 /* NetworkFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE66633243E16F000749556 /* NetworkFile.swift */; };
 		9EE66636243E170B00749556 /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE66635243E170B00749556 /* NetworkTool.swift */; };
 		9EE66638243E172A00749556 /* WeatherNetworkApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EE66637243E172A00749556 /* WeatherNetworkApi.swift */; };
+		9EECF93C2440473100F7CC61 /* WeekWeatherTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECF93B2440473100F7CC61 /* WeekWeatherTableViewCell.swift */; };
+		9EECF94024404F2C00F7CC61 /* weekWeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EECF93F24404F2C00F7CC61 /* weekWeatherViewModel.swift */; };
 		9EF1EE29243F1DDC00E89A3D /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF1EE28243F1DDC00E89A3D /* Double+Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,6 +72,8 @@
 		9EE66633243E16F000749556 /* NetworkFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFile.swift; sourceTree = "<group>"; };
 		9EE66635243E170B00749556 /* NetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
 		9EE66637243E172A00749556 /* WeatherNetworkApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherNetworkApi.swift; sourceTree = "<group>"; };
+		9EECF93B2440473100F7CC61 /* WeekWeatherTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekWeatherTableViewCell.swift; sourceTree = "<group>"; };
+		9EECF93F24404F2C00F7CC61 /* weekWeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = weekWeatherViewModel.swift; sourceTree = "<group>"; };
 		9EF1EE28243F1DDC00E89A3D /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -111,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				9EC6E829243F6F2E007728CE /* currentWeatherViewModel.swift */,
+				9EECF93F24404F2C00F7CC61 /* weekWeatherViewModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -138,11 +143,12 @@
 		9EE665F3243DDF6900749556 /* weather */ = {
 			isa = PBXGroup;
 			children = (
-				9EB4ACAE243F18B900EFE8C5 /* extensions */,
 				9EE6662D243E166600749556 /* network */,
 				9EE66626243DE47500749556 /* model */,
+				9EB4ACAE243F18B900EFE8C5 /* extensions */,
 				9EC6E828243F6F17007728CE /* viewModel */,
-				9EE66625243DDFAB00749556 /* controller */,
+				9EECF93A2440470500F7CC61 /* Views */,
+				9EE66625243DDFAB00749556 /* Controllers */,
 				9EE66624243DDF8700749556 /* resources */,
 			);
 			path = weather;
@@ -180,12 +186,12 @@
 			path = resources;
 			sourceTree = "<group>";
 		};
-		9EE66625243DDFAB00749556 /* controller */ = {
+		9EE66625243DDFAB00749556 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				9EE665F8243DDF6900749556 /* InitialViewController.swift */,
 			);
-			path = controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		9EE66626243DE47500749556 /* model */ = {
@@ -215,6 +221,14 @@
 				9EE66635243E170B00749556 /* NetworkTool.swift */,
 			);
 			path = common;
+			sourceTree = "<group>";
+		};
+		9EECF93A2440470500F7CC61 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9EECF93B2440473100F7CC61 /* WeekWeatherTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,8 +372,10 @@
 				9EC6E82A243F6F2E007728CE /* currentWeatherViewModel.swift in Sources */,
 				9EE66636243E170B00749556 /* NetworkTool.swift in Sources */,
 				9EE66638243E172A00749556 /* WeatherNetworkApi.swift in Sources */,
+				9EECF93C2440473100F7CC61 /* WeekWeatherTableViewCell.swift in Sources */,
 				9EE66632243E16E400749556 /* Network.swift in Sources */,
 				9E6149C9243E18620012B5F7 /* Consts.swift in Sources */,
+				9EECF94024404F2C00F7CC61 /* weekWeatherViewModel.swift in Sources */,
 				9EE66634243E16F000749556 /* NetworkFile.swift in Sources */,
 				9EE6662A243DE4AE00749556 /* Weather.swift in Sources */,
 			);

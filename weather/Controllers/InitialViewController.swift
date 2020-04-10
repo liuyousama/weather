@@ -20,19 +20,13 @@ class InitialViewController: UIViewController {
     private var currentLocation:CLLocation? {
         didSet {
             self.requestCity()
-        }
-    }
-    var locationData:Location? {
-        willSet {
-            guard let location = newValue else {return}
-            self.cityName.text = location.name
             self.requestWeather()
         }
     }
-    var weatherData:WeatherData? {
-        willSet {
+    var currentWeatherViewModel:CurrentWeatherViewModel {
+        didSet {
             DispatchQueue.main.async {
-                self.willReceiveWeatherData(data: newValue)
+                self.updateUI()
             }
         }
     }
@@ -62,12 +56,17 @@ class InitialViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    // MARK: - 初始化方法
+    required init?(coder: NSCoder) {
+        currentWeatherViewModel = CurrentWeatherViewModel()
+        super.init(coder: coder)
+    }
 }
 
 // MARK: - 网络代理
 extension InitialViewController: WeatherApiDelegate {
     func requestSuccess(weatherData: WeatherData) {
-        self.weatherData = weatherData
+        currentWeatherViewModel.currentWeatherData = weatherData.currently
     }
     
     func requestError(error: Error) {
@@ -151,11 +150,11 @@ extension InitialViewController {
         CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
             if let err = error {
                 print(err)
-                dump(err)
                 return
             }
             if let city = placemarks?.first?.locality {
-                self.locationData = Location(name: city, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                self.currentWeatherViewModel.locationData =
+                    Location(name: city, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             }
         }
     }
@@ -167,21 +166,20 @@ extension InitialViewController {
         loadingIndicator.hidesWhenStopped = true
     }
     
-    private func willReceiveWeatherData(data:WeatherData?) {
-        guard let data = data else {return}
-        errorText.isHidden = true
-        currentWeatherContainer.isHidden = false
-        loadingIndicator.stopAnimating()
-        //更新现在的天气
-        let current = data.currently
-        currentWeatherIcon.image = UIImage.getWeatherIcon(withIconName: current.icon)
-        currentWeatherSummary.text = current.summary
-        currentTempure.text = current.temperature.toCelsiusStr()
-        currentHumidity.text = current.humidity.toHumiditStr()
+    private func updateUI() {
+        let vm1 = currentWeatherViewModel
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "E, dd MMMM"
-        currentTime.text = formatter.string(from: current.time)
+        if vm1.dataIsReady {
+            currentWeatherIcon.image = vm1.icon
+            currentWeatherSummary.text = vm1.summary
+            currentTime.text = vm1.time
+            currentTempure.text = vm1.temperature
+            currentHumidity.text = vm1.humidity
+            cityName.text = vm1.cityName
+            errorText.isHidden = true
+            loadingIndicator.stopAnimating()
+            currentWeatherContainer.isHidden = true
+        }
     }
     
     
