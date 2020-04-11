@@ -42,14 +42,20 @@ struct CurrentWeatherViewModel {
         return currentWeatherData?.summary ?? ""
     }
     var temperature:String {
-        return currentWeatherData?.temperature.toCelsiusStr() ?? ""
+        return SettingHelper.getTemperatureMode().temperatureText(currentWeatherData?.temperature ?? 0.0)
     }
     var humidity:String {
         return currentWeatherData?.humidity.toHumiditStr() ?? ""
     }
     var time:String {
         let formater = DateFormatter()
-        formater.dateFormat = "E, dd MMMM"
+        let timeMode = SettingHelper.getDateMode()
+        switch timeMode {
+        case .text:
+            formater.dateFormat = "EEEE, dd MMMM"
+        case .digit:
+            formater.dateFormat = "E, MM/dd"
+        }
         return formater.string(from: currentWeatherData?.time ?? Date.init(timeIntervalSinceNow: 0))
 
     }

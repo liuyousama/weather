@@ -35,12 +35,19 @@ struct WeekWeatherViewModel {
     }
     func time(for index:Int) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM d"
+        let timeMode = SettingHelper.getDateMode()
+        switch timeMode {
+        case .text:
+            formatter.dateFormat = "MMMM d"
+        case .digit:
+            formatter.dateFormat = "MM/dd"
+        }
         return formatter.string(from: weekWeatherData?.data[index].time ?? Date.init(timeIntervalSinceNow: 0))
     }
     func forecastTemperature(for index:Int) -> String {
-        let low = weekWeatherData?.data[index].temperatureLow.toCelsiusStr() ?? "Unknown"
-        let high = weekWeatherData?.data[index].temperatureHigh.toCelsiusStr() ?? "Unknown"
+        let temMode = SettingHelper.getTemperatureMode()
+        let low = temMode.temperatureText(weekWeatherData?.data[index].temperatureLow ?? 0)
+        let high = temMode.temperatureText(weekWeatherData?.data[index].temperatureHigh ?? 0)
         
         return "\(low) - \(high)"
     }

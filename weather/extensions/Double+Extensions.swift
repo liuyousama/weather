@@ -18,4 +18,7 @@ extension Double {
         let humidity = self * 100
         return String(format: "%.1f", humidity)+"%"
     }
+    public func toFahrenheitStr() -> String {
+        return String(format: "%.1f℉", self)
+    }
 }

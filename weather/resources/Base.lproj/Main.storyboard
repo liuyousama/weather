@@ -33,7 +33,7 @@
                                         </constraints>
                                         <state key="normal" image="Setting"/>
                                         <connections>
-                                            <action selector="clickedSettingBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="H7X-I3-el6"/>
+                                            <segue destination="Jwv-8K-Mc0" kind="presentation" identifier="GoToSettingController" id="WCP-u4-gma"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beijing" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjZ-l9-a7l">
@@ -234,6 +234,86 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="137.68115942028987" y="138.61607142857142"/>
+        </scene>
+        <!--Setting View Controller-->
+        <scene sceneID="J2s-cv-d0x">
+            <objects>
+                <viewController id="Jwv-8K-Mc0" customClass="SettingViewController" customModule="weather" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="umS-G4-JGh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vjx-M5-Pna">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="yLv-2Y-sqd"/>
+                                </constraints>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <navigationItem title="Settings" id="e6r-0Q-e28">
+                                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="6pF-zt-Kzj">
+                                            <connections>
+                                                <action selector="clickDone:" destination="Jwv-8K-Mc0" id="LhB-eE-atx"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="jmg-so-zU4">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="SettingCell" id="MvD-Hj-Hny" customClass="SettingTableViewCell" customModule="weather" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="46.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MvD-Hj-Hny" id="y7e-7d-Cwg">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="46.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JeH-u8-nec">
+                                                    <rect key="frame" x="20" y="11" width="50" height="24.5"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="JeH-u8-nec" firstAttribute="leading" secondItem="y7e-7d-Cwg" secondAttribute="leadingMargin" id="91f-mJ-MXm"/>
+                                                <constraint firstItem="JeH-u8-nec" firstAttribute="top" secondItem="y7e-7d-Cwg" secondAttribute="topMargin" id="Ibm-Bo-o3T"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="JeH-u8-nec" secondAttribute="bottom" id="NEo-kB-AIt"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cellLabel" destination="JeH-u8-nec" id="u5v-57-u8z"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="Jwv-8K-Mc0" id="n7f-Xw-e0T"/>
+                                    <outlet property="delegate" destination="Jwv-8K-Mc0" id="moi-ha-0Cw"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="jmg-so-zU4" firstAttribute="top" secondItem="vjx-M5-Pna" secondAttribute="bottom" id="7EN-WL-769"/>
+                            <constraint firstItem="vjx-M5-Pna" firstAttribute="trailing" secondItem="AEj-Ms-UGh" secondAttribute="trailing" id="MI3-cK-t27"/>
+                            <constraint firstItem="vjx-M5-Pna" firstAttribute="leading" secondItem="AEj-Ms-UGh" secondAttribute="leading" id="mNt-Z6-g8Y"/>
+                            <constraint firstItem="jmg-so-zU4" firstAttribute="leading" secondItem="AEj-Ms-UGh" secondAttribute="leading" id="mu4-X6-Ufr"/>
+                            <constraint firstItem="AEj-Ms-UGh" firstAttribute="trailing" secondItem="jmg-so-zU4" secondAttribute="trailing" id="peM-TZ-YAy"/>
+                            <constraint firstItem="vjx-M5-Pna" firstAttribute="top" secondItem="AEj-Ms-UGh" secondAttribute="top" id="xTp-xO-2V4"/>
+                            <constraint firstItem="AEj-Ms-UGh" firstAttribute="bottom" secondItem="jmg-so-zU4" secondAttribute="bottom" id="yUM-lK-p8f"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AEj-Ms-UGh"/>
+                    </view>
+                    <splitViewMasterSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="jmg-so-zU4" id="VUw-mW-jT5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="X7w-Re-avi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="903" y="139"/>
         </scene>
     </scenes>
     <resources>
