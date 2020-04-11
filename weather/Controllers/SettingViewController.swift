@@ -12,23 +12,27 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     weak var delegate:SettingControllerDelegate?
+    var viewModel:SettingViewModel
     
     // MARK: - 生命周期方法
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     // MARK: - IBAction事件
     @IBAction func clickDone(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
+    required init?(coder: NSCoder) {
+        viewModel = SettingViewModel()
+        super.init(coder:coder)
+    }
 }
 
 extension SettingViewController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return SettingData[section].sectionCells.count
+        return viewModel.cellCount(for: section)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -36,46 +40,23 @@ extension SettingViewController:UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell(style: .default, reuseIdentifier: "0")
         }
         
-        let section = SettingData[indexPath.section]
-        let row = section.sectionCells[indexPath.row]
-        cell.cellLabel.text = row.cellTitle
-        
-        switch section.section {
-        case .date:
-            let dateMode = SettingHelper.getDateMode()
-            cell.accessoryType = row.rawValue == dateMode.rawValue ? .checkmark : .none
-        case .temperature:
-            let temMode = SettingHelper.getTemperatureMode()
-            cell.accessoryType = row.rawValue == temMode.rawValue ? .checkmark : .none
-        }
+        cell.cellLabel.text = viewModel.cellLable(at: indexPath)
+        cell.accessoryType = viewModel.cellAccessoryType(at: indexPath)
         
         return cell
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return SettingData.count
+        return viewModel.sectionCount
     }
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return SettingData[section].sectionTitle
+        return viewModel.sectionTitle(for: section)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let section = SettingData[indexPath.section]
-        let row = section.sectionCells[indexPath.row]
-        
-        switch section.section {
-        case .date:
-            let newMode = DateMode(rawValue: row.rawValue) ?? .text
-            SettingHelper.setDateMode(newMode)
-            delegate?.didChangeTimeMode()
-        case .temperature:
-            let newMode = TemperatureMode(rawValue: row.rawValue) ?? .celsius
-            SettingHelper.setTemperatureMode(newMode)
-            delegate?.didChangeTemperatureMode()
-        }
-        
-        tableView.reloadSections([indexPath.section], with: .automatic)
+        viewModel.changeMode(afterClickAt: indexPath, withDelegate: delegate)
+        tableView.reloadData()
     }
     
 }

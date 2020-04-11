@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E6149C9243E18620012B5F7 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6149C8243E18620012B5F7 /* Consts.swift */; };
+		9EAF12BA2441F16E003F9B20 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF12B92441F16E003F9B20 /* SettingViewModel.swift */; };
 		9EB4ACB0243F18D200EFE8C5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4ACAF243F18D200EFE8C5 /* UIImage+Extensions.swift */; };
 		9EBB1B3F2441736500ABC272 /* SettingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB1B3E2441736500ABC272 /* SettingHelper.swift */; };
 		9EBB1B412441797E00ABC272 /* SettingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EBB1B402441797E00ABC272 /* SettingModel.swift */; };
@@ -54,6 +55,7 @@
 
 /* Begin PBXFileReference section */
 		9E6149C8243E18620012B5F7 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
+		9EAF12B92441F16E003F9B20 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		9EB4ACAF243F18D200EFE8C5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		9EBB1B3E2441736500ABC272 /* SettingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingHelper.swift; sourceTree = "<group>"; };
 		9EBB1B402441797E00ABC272 /* SettingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingModel.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 			children = (
 				9EC6E829243F6F2E007728CE /* currentWeatherViewModel.swift */,
 				9EECF93F24404F2C00F7CC61 /* weekWeatherViewModel.swift */,
+				9EAF12B92441F16E003F9B20 /* SettingViewModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				9E6149C9243E18620012B5F7 /* Consts.swift in Sources */,
 				9EECF94024404F2C00F7CC61 /* weekWeatherViewModel.swift in Sources */,
 				9EBB1B412441797E00ABC272 /* SettingModel.swift in Sources */,
+				9EAF12BA2441F16E003F9B20 /* SettingViewModel.swift in Sources */,
 				9EE66634243E16F000749556 /* NetworkFile.swift in Sources */,
 				9EE6662A243DE4AE00749556 /* Weather.swift in Sources */,
 			);
