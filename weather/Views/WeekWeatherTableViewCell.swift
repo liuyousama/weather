@@ -22,7 +22,7 @@ class WeekWeatherTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func config(with vm:WeekWeatherViewModel, at index:Int) {
+    func config(with vm:WeekWeatherRepresenter, at index:Int) {
         weekTime.text = vm.week(for: index)
         dayTime.text = vm.time(for: index)
         humidity.text = vm.forecastHumidity(for: index)

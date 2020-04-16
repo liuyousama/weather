@@ -19,18 +19,12 @@ class InitialViewController: UIViewController {
     }()
     private var currentLocation:CLLocation? {
         didSet {
+            self.setupInitialUI()
             self.requestCity()
             self.requestWeather()
         }
     }
-    var currentWeatherViewModel:CurrentWeatherViewModel {
-        didSet {
-            DispatchQueue.main.async {
-                self.updateUI()
-            }
-        }
-    }
-    var weekWeatherViewModel:WeekWeatherViewModel {
+    var weatherViewModel:WeatherViewModel {
         didSet {
             DispatchQueue.main.async {
                 self.updateUI()
@@ -64,8 +58,7 @@ class InitialViewController: UIViewController {
     }
     // MARK: - 初始化方法
     required init?(coder: NSCoder) {
-        currentWeatherViewModel = CurrentWeatherViewModel()
-        weekWeatherViewModel = WeekWeatherViewModel()
+        weatherViewModel = WeatherViewModel()
         super.init(coder: coder)
     }
 }
@@ -73,8 +66,8 @@ class InitialViewController: UIViewController {
 // MARK: - 网络代理
 extension InitialViewController: WeatherApiDelegate {
     func requestSuccess(weatherData: WeatherData) {
-        currentWeatherViewModel.currentWeatherData = weatherData.currently
-        weekWeatherViewModel.weekWeatherData = weatherData.daily
+        weatherViewModel.currentWeatherData = weatherData.currently
+        weatherViewModel.weekWeatherData = weatherData.daily
     }
     
     func requestError(error: Error) {
@@ -186,7 +179,7 @@ extension InitialViewController {
                 return
             }
             if let city = placemarks?.first?.locality {
-                self.currentWeatherViewModel.locationData =
+                self.weatherViewModel.locationData =
                     Location(name: city, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             }
         }
@@ -194,7 +187,7 @@ extension InitialViewController {
     
     private func setupInitialUI() {
         errorText.isHidden = true
-        tableView.isHidden = false
+        tableView.isHidden = true
         currentWeatherContainer.isHidden = true
         loadingIndicator.startAnimating()
         loadingIndicator.hidesWhenStopped = true
@@ -208,26 +201,21 @@ extension InitialViewController {
     }
     
     private func updateUI() {
-        let vm1 = currentWeatherViewModel
-        let vm2 = weekWeatherViewModel
+        let vm = weatherViewModel
         
-        if vm1.dataIsReady {
-            currentWeatherIcon.image = vm1.icon
-            currentWeatherSummary.text = vm1.summary
-            currentTime.text = vm1.time
-            currentTempure.text = vm1.temperature
-            currentHumidity.text = vm1.humidity
-            cityName.text = vm1.cityName
+        if vm.dataIsReady {
+            currentWeatherIcon.image = vm.icon
+            currentTime.text = vm.time
+            currentWeatherSummary.text = vm.summary
+            currentTempure.text  = vm.temperature
+            currentHumidity.text = vm.humidity
+            cityName.text = vm.cityName
             errorText.isHidden = true
             loadingIndicator.stopAnimating()
             currentWeatherContainer.isHidden = false
-        }
-        
-        if vm2.isDataReady {
             tableView.isHidden = false
             tableView.reloadData()
         }
-        
     }
     
     
