@@ -48,7 +48,6 @@ class InitialViewController: UIViewController {
     @IBOutlet weak var currentHumidity: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var errorText: UILabel!
-    @IBAction func clickedLocBtn(_ sender: UIButton) {pressedLocationBtn(btn: sender)}
     @IBOutlet weak var tableView: UITableView!
     // MARK: - 生命周期方法
     override func viewDidLoad() {
@@ -135,14 +134,24 @@ extension InitialViewController: SettingControllerDelegate {
     
 }
 
-// MARK: - 响应函数
-extension InitialViewController {
-    func pressedLocationBtn(btn:UIButton) {
-        print(#function)
+// MARK: - LocationManagerController的代理
+extension InitialViewController: LocationManagerControllerDelegate {
+    func controller(_ controller: LocationManagerController, didSelectLocation location: CLLocation) {
+        currentLocation = location
     }
     
+    
+}
+
+// MARK: - 响应函数
+extension InitialViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoToSettingController", let destVc = segue.destination as? SettingViewController {
+            destVc.delegate = self
+            destVc.modalPresentationStyle = .fullScreen
+        }
+        if segue.identifier == "GoToLocationManager", let destVc = segue.destination as? LocationManagerController {
+            destVc.currentLocation = currentLocation
             destVc.delegate = self
             destVc.modalPresentationStyle = .fullScreen
         }

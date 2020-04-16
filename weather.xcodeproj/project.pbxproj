@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E13ACA52448634400DB8CD8 /* LocationManagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E13ACA42448634400DB8CD8 /* LocationManagerController.swift */; };
+		9E13ACA7244863EB00DB8CD8 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E13ACA6244863EB00DB8CD8 /* LocationCell.swift */; };
+		9E13ACA9244867DF00DB8CD8 /* LocationManagerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E13ACA8244867DF00DB8CD8 /* LocationManagerViewModel.swift */; };
+		9E13ACAB24486C1B00DB8CD8 /* LocationStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E13ACAA24486C1B00DB8CD8 /* LocationStore.swift */; };
 		9E6149C9243E18620012B5F7 /* Consts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E6149C8243E18620012B5F7 /* Consts.swift */; };
 		9EAF12BA2441F16E003F9B20 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAF12B92441F16E003F9B20 /* SettingViewModel.swift */; };
 		9EB4ACB0243F18D200EFE8C5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EB4ACAF243F18D200EFE8C5 /* UIImage+Extensions.swift */; };
@@ -54,6 +58,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E13ACA42448634400DB8CD8 /* LocationManagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerController.swift; sourceTree = "<group>"; };
+		9E13ACA6244863EB00DB8CD8 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
+		9E13ACA8244867DF00DB8CD8 /* LocationManagerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerViewModel.swift; sourceTree = "<group>"; };
+		9E13ACAA24486C1B00DB8CD8 /* LocationStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStore.swift; sourceTree = "<group>"; };
 		9E6149C8243E18620012B5F7 /* Consts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Consts.swift; sourceTree = "<group>"; };
 		9EAF12B92441F16E003F9B20 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		9EB4ACAF243F18D200EFE8C5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
@@ -127,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				9EBB1B3E2441736500ABC272 /* SettingHelper.swift */,
+				9E13ACAA24486C1B00DB8CD8 /* LocationStore.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -137,6 +146,7 @@
 				9EC6E829243F6F2E007728CE /* currentWeatherViewModel.swift */,
 				9EECF93F24404F2C00F7CC61 /* weekWeatherViewModel.swift */,
 				9EAF12B92441F16E003F9B20 /* SettingViewModel.swift */,
+				9E13ACA8244867DF00DB8CD8 /* LocationManagerViewModel.swift */,
 			);
 			path = viewModel;
 			sourceTree = "<group>";
@@ -214,6 +224,7 @@
 				9EE665F8243DDF6900749556 /* InitialViewController.swift */,
 				9EECF9412440952F00F7CC61 /* InitialViewController+Table.swift */,
 				9EFB9C4324417C4F00A22F25 /* SettingViewController.swift */,
+				9E13ACA42448634400DB8CD8 /* LocationManagerController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -253,6 +264,7 @@
 			children = (
 				9EECF93B2440473100F7CC61 /* WeekWeatherTableViewCell.swift */,
 				9EFB9C4124417C1100A22F25 /* SettingTableViewCell.swift */,
+				9E13ACA6244863EB00DB8CD8 /* LocationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -394,12 +406,15 @@
 				9EE665F5243DDF6900749556 /* AppDelegate.swift in Sources */,
 				9EB4ACB0243F18D200EFE8C5 /* UIImage+Extensions.swift in Sources */,
 				9EFB9C4424417C4F00A22F25 /* SettingViewController.swift in Sources */,
+				9E13ACA7244863EB00DB8CD8 /* LocationCell.swift in Sources */,
+				9E13ACA52448634400DB8CD8 /* LocationManagerController.swift in Sources */,
 				9EE66628243DE48300749556 /* Location.swift in Sources */,
 				9EFB9C4224417C1100A22F25 /* SettingTableViewCell.swift in Sources */,
 				9EE665F7243DDF6900749556 /* SceneDelegate.swift in Sources */,
 				9EC6E82A243F6F2E007728CE /* currentWeatherViewModel.swift in Sources */,
 				9EBB1B3F2441736500ABC272 /* SettingHelper.swift in Sources */,
 				9EECF9422440952F00F7CC61 /* InitialViewController+Table.swift in Sources */,
+				9E13ACAB24486C1B00DB8CD8 /* LocationStore.swift in Sources */,
 				9EE66636243E170B00749556 /* NetworkTool.swift in Sources */,
 				9EE66638243E172A00749556 /* WeatherNetworkApi.swift in Sources */,
 				9EECF93C2440473100F7CC61 /* WeekWeatherTableViewCell.swift in Sources */,
@@ -409,6 +424,7 @@
 				9EBB1B412441797E00ABC272 /* SettingModel.swift in Sources */,
 				9EAF12BA2441F16E003F9B20 /* SettingViewModel.swift in Sources */,
 				9EE66634243E16F000749556 /* NetworkFile.swift in Sources */,
+				9E13ACA9244867DF00DB8CD8 /* LocationManagerViewModel.swift in Sources */,
 				9EE6662A243DE4AE00749556 /* Weather.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
