@@ -9,30 +9,51 @@
 import Foundation
 import CoreLocation
 
-struct LocationSearchViewModel {
+class LocationSearchViewModel {
     var searchText: String? {
         didSet{
             self.updateResults()
         }
     }
+    private var isSearching:Bool {
+        didSet {
+            DispatchQueue.main.async {
+                self.searchStatusDidChange?(self.isSearching)
+            }
+        }
+    }
+    private var searchResults:[Location] {
+        didSet {
+            DispatchQueue.main.async {
+                self.locationsDidChange?(self.searchResults)
+            }
+        }
+    }
     
-    private var searchResults = [Location]()
+    private lazy var geocoder = CLGeocoder()
     
-    private mutating func updateResults() {
+    var locationsDidChange:(([Location])->Void)?
+    var searchStatusDidChange:((Bool)->Void)?
+    
+    init() {
+        isSearching = false
+        searchResults = [Location]()
+    }
+    
+    private  func updateResults() {
+        isSearching = true
         guard let text = searchText else {
             searchResults = []
             return
         }
-        
-        let selfPointer = UnsafeMutablePointer(&self)
-        CLGeocoder().geocodeAddressString(text) { (placeMarks, err) in
-            if let err = err {
-                print(err)
-                selfPointer.pointee.searchResults = []
+        CLGeocoder().geocodeAddressString(text) { [weak self](placeMarks, err) in
+            self?.isSearching = false
+            if let _ = err {
+                self?.searchResults = []
                 return
             }
             guard let places = placeMarks else {
-                selfPointer.pointee.searchResults = []
+                self?.searchResults = []
                 return
             }
             
@@ -41,9 +62,8 @@ struct LocationSearchViewModel {
                 guard let location = placeMark.location else {return nil}
                 return Location(name: name, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
             })
-            selfPointer.pointee.searchResults = locations
+            self?.searchResults = locations
         }
-        
     }
     
 }
@@ -52,6 +72,10 @@ struct LocationSearchViewModel {
 extension LocationSearchViewModel: LocationSearchCellRepresentable {
     var totalCount:Int {
         return max(1, searchResults.count)
+    }
+    
+    var sectionTitle:String {
+        return isSearching ? "Searching" : "Search Result"
     }
     
     func location(for index:Int) -> Location? {

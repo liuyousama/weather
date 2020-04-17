@@ -21,6 +21,7 @@ class LocationSearchController: UIViewController {
     // MARK: - 属性
     var locations = [Location]()
     weak var delegate:LocationSearchControllerDelegate?
+    var locationSearchViewModel = LocationSearchViewModel()
     // MARK: - 生命周期函数
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,12 +29,18 @@ class LocationSearchController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         searchBar.becomeFirstResponder()
+        locationSearchViewModel.locationsDidChange = { [weak self] locations in
+            self?.tableView.reloadData()
+        }
+        locationSearchViewModel.searchStatusDidChange = { [weak self] isSearching in
+            self?.tableView.reloadData()
+        }
     }
 }
 // MARK: - TableView数据源与代理
 extension LocationSearchController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return max(1, locations.count)
+        return locationSearchViewModel.totalCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -41,7 +48,7 @@ extension LocationSearchController: UITableViewDataSource, UITableViewDelegate {
             return UITableViewCell(style: .default, reuseIdentifier: "")
         }
         
-        cell.locationLabel.text = locations.isEmpty ? "No Matches..." : locations[indexPath.row].name
+        cell.config(with: locationSearchViewModel, at: indexPath.row)
         
         return cell
     }
@@ -53,8 +60,9 @@ extension LocationSearchController: UITableViewDataSource, UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if !locations.isEmpty {
-            delegate?.controller(self, didSelectLocation: locations[indexPath.row])
+        let location = locationSearchViewModel.location(for: indexPath.row)
+        if let location = location{
+            delegate?.controller(self, didSelectLocation: location)
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -62,39 +70,8 @@ extension LocationSearchController: UITableViewDataSource, UITableViewDelegate {
 
 extension LocationSearchController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        geocode(address: searchText)
+        locationSearchViewModel.searchText = searchText
     }
-}
-
-extension LocationSearchController {
-    private func geocode(address:String?) {
-        guard let address = address else {
-            self.locations = []
-            tableView.reloadData()
-            return
-        }
-        if address == "" {
-            self.locations = []
-            tableView.reloadData()
-            return
-        }
-        
-        CLGeocoder().geocodeAddressString(address) { (places, err) in
-            DispatchQueue.main.async {
-                if let _ = err {
-                    return
-                } else if let places = places {
-                    self.locations = places.compactMap({ placemark -> Location? in
-                        guard let name = placemark.name else {return nil}
-                        guard let location = placemark.location else {return nil}
-                        return Location(name: name, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                    })
-                    self.tableView.reloadData()
-                }
-            }
-        }
-    }
-    
 }
 
 
