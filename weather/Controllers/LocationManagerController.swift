@@ -106,6 +106,24 @@ extension LocationManagerController:UITableViewDataSource, UITableViewDelegate {
     
 }
 
+// MARK: - 搜索地区添加控制器的代理
+extension LocationManagerController: LocationSearchControllerDelegate {
+    func controller(_ controller: LocationSearchController, didSelectLocation location: Location) {
+        favorites.append(location)
+        LocationStore.saveLocations(favorites)
+        tableView.reloadData()
+    }
+}
+
+// MARK: - 响应函数
+extension LocationManagerController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "GoToLocationSearch", let destVc = segue.destination as? LocationSearchController {
+            destVc.modalPresentationStyle = .fullScreen
+            destVc.delegate = self
+        }
+    }
+}
 
 protocol LocationManagerControllerDelegate: AnyObject {
     func controller(_ controller: LocationManagerController, didSelectLocation location:CLLocation)

@@ -46,12 +46,12 @@ class InitialViewController: UIViewController {
     // MARK: - 生命周期方法
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.setupInitialUI()
+        self.requestLocation()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.setupInitialUI()
-        self.requestLocation()
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
