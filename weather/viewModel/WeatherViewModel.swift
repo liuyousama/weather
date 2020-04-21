@@ -123,18 +123,3 @@ protocol CurrentWeatherRepresenter {
     /// 今日的时间字符串
     var time:String { get }
 }
-
-protocol WeekWeatherRepresenter {
-    var dataCount:Int { get }
-    var sectionCount:Int { get }
-    /// 位于index处的cell的周文字
-    func week(for index:Int) -> String
-    
-    func time(for index:Int) -> String
-    
-    func forecastTemperature(for index:Int) -> String
-    
-    func forecastHumidity(for index:Int) -> String
-    
-    func icon(for index:Int) -> UIImage?
-}

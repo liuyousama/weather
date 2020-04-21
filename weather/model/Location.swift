@@ -9,10 +9,12 @@
 import Foundation
 import CoreLocation
 
-struct Location {
+struct Location: Equatable {
     var name:String
     var latitude: Double
     var longitude: Double
+    
+    static let empty = Location(name: "", latitude: 0, longitude: 0)
     
     var location:CLLocation {
         return CLLocation(latitude: latitude, longitude: longitude)
@@ -41,7 +43,3 @@ struct Location {
     }
 }
 
-
-extension Location: Equatable {
-    
-}

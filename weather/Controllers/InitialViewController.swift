@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import CoreLocation
 
 class InitialViewController: UIViewController {
@@ -24,13 +26,11 @@ class InitialViewController: UIViewController {
             self.requestWeather()
         }
     }
-    var weatherViewModel:WeatherViewModel {
-        didSet {
-            DispatchQueue.main.async {
-                self.updateUI()
-            }
-        }
-    }
+    
+    var bag = DisposeBag()
+    var curWeatherVM = BehaviorRelay(value: CurrentWeatherViewModel.empty)
+    var curLocationVM = BehaviorRelay(value: CurrentLocationViewModel.empty)
+    var weekWeatherVM = BehaviorRelay(value: WeekWeatherViewModel.empty)
     
     // MARK: - UI相关的属性
     @IBOutlet weak var currentWeatherContainer: UIView!
@@ -48,6 +48,7 @@ class InitialViewController: UIViewController {
         super.viewDidLoad()
         self.setupInitialUI()
         self.requestLocation()
+        self.setupUIBind()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -56,37 +57,6 @@ class InitialViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    // MARK: - 初始化方法
-    required init?(coder: NSCoder) {
-        weatherViewModel = WeatherViewModel()
-        super.init(coder: coder)
-    }
-}
-
-// MARK: - 网络代理
-extension InitialViewController: WeatherApiDelegate {
-    func requestSuccess(weatherData: WeatherData) {
-        weatherViewModel.currentWeatherData = weatherData.currently
-        weatherViewModel.weekWeatherData = weatherData.daily
-    }
-    
-    func requestError(error: Error) {
-        DispatchQueue.main.async {
-            self.showErrorInfo()
-        }
-    }
-    
-    func handleDataError(error: Error) {
-        DispatchQueue.main.async {
-            self.showErrorInfo()
-        }
-    }
-    
-    func receiveEmptyData() {
-        print(#function)
-    }
-    
-    
 }
 
 // MARK: - CLLocation 定位的代理
@@ -168,21 +138,51 @@ extension InitialViewController {
         
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
-        WeatherApi.requestWeatherDataWithDelegate(latitude: latitude, longitude: longitude, delegate: self)
+        let res = WeatherApi.weatherDataAt(latitude: latitude, longitude: longitude).share(replay: 1, scope: .whileConnected)
+        res.map {CurrentWeatherViewModel(weather: $0.currently)}.bind(to: curWeatherVM).disposed(by: bag)
+        res.map {WeekWeatherViewModel(weathers: $0.daily)}.bind(to: weekWeatherVM).disposed(by: bag)
     }
     /// 在获取到定位后解析当前城市信息
     private func requestCity() {
         guard let location = currentLocation else {return}
-        CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
+        CLGeocoder().reverseGeocodeLocation(location) { [weak self](placemarks, error) in
             if let err = error {
                 print(err)
                 return
             }
             if let city = placemarks?.first?.locality {
-                self.weatherViewModel.locationData =
-                    Location(name: city, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                let loc = Location(name: city, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+                self?.curLocationVM.accept(CurrentLocationViewModel(location: loc))
             }
         }
+    }
+    
+    private func setupUIBind() {
+        
+        let vm = Observable.combineLatest(curWeatherVM, curLocationVM, weekWeatherVM) {
+            return ($0, $1, $2)
+        }.filter {
+            let (weatherVM, locationVM, weekVM) = $0
+            return !weatherVM.isEmpty && !locationVM.isEmpty && !weekVM.isEmpty
+        }.share(replay: 1, scope: .whileConnected).observeOn(MainScheduler.instance)
+            
+        vm.subscribe { _ in
+            self.tableView.reloadData()
+        }.disposed(by: bag)
+            
+        let driver = vm.asDriver(onErrorJustReturn: (CurrentWeatherViewModel.empty,                                             CurrentLocationViewModel.empty,
+                                                      WeekWeatherViewModel.empty))
+        driver.map {$0.1.city}.drive(cityName.rx.text).disposed(by: bag)
+        driver.map {$0.0.temperature}.drive(currentTempure.rx.text).disposed(by: bag)
+        driver.map {$0.0.humidity}.drive(currentHumidity.rx.text).disposed(by: bag)
+        driver.map {$0.0.icon}.drive(currentWeatherIcon.rx.image).disposed(by: bag)
+        driver.map {$0.0.time}.drive(currentTime.rx.text).disposed(by: bag)
+        driver.map {$0.0.summary}.drive(currentWeatherSummary.rx.text).disposed(by: bag)
+        driver.map {_ in false}.drive(loadingIndicator.rx.isAnimating).disposed(by: bag)
+        driver.map {_ in false}.drive(currentWeatherContainer.rx.isHidden).disposed(by: bag)
+        driver.map {_ in false}.drive(tableView.rx.isHidden).disposed(by: bag)
+        driver.map {_ in true}.drive(errorText.rx.isHidden).disposed(by: bag)
+        
     }
     
     private func setupInitialUI() {
@@ -201,21 +201,9 @@ extension InitialViewController {
     }
     
     private func updateUI() {
-        let vm = weatherViewModel
-        
-        if vm.dataIsReady {
-            currentWeatherIcon.image = vm.icon
-            currentTime.text = vm.time
-            currentWeatherSummary.text = vm.summary
-            currentTempure.text  = vm.temperature
-            currentHumidity.text = vm.humidity
-            cityName.text = vm.cityName
-            errorText.isHidden = true
-            loadingIndicator.stopAnimating()
-            currentWeatherContainer.isHidden = false
-            tableView.isHidden = false
-            tableView.reloadData()
-        }
+        weekWeatherVM.accept(weekWeatherVM.value)
+        curWeatherVM.accept(curWeatherVM.value)
+        curLocationVM.accept(curLocationVM.value)
     }
     
     

@@ -7,8 +7,12 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 struct WeatherApi {
+    static let session = URLSession.shared
+    
     static func requestWeatherDataWithDelegate(latitude: Double, longitude: Double, delegate: WeatherApiDelegate) -> Void {
         let url = DarkskyUrl.appendingPathComponent("\(latitude),\(longitude)")
         
@@ -28,7 +32,19 @@ struct WeatherApi {
         }
         
     }
-    
+    static func weatherDataAt(latitude: Double, longitude: Double) -> Observable<WeatherData> {
+        let url = DarkskyUrl.appendingPathComponent("\(latitude),\(longitude)")
+        var request = URLRequest(url:url)
+        request.setValue("application/json",forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
+        
+        return self.session.rx
+        .data(request: request).map {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .secondsSince1970
+            return try decoder.decode(WeatherData.self, from: $0)
+        }
+    }
     
 }
 

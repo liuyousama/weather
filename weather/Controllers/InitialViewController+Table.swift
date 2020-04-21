@@ -10,18 +10,18 @@ import UIKit
 
 extension InitialViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatherViewModel.dataCount
+        return weekWeatherVM.value.dataCount
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return weatherViewModel.sectionCount
+        return weekWeatherVM.value.sectionCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "WeekWeatherCell", for: indexPath) as? WeekWeatherTableViewCell else {
             return UITableViewCell(style: .default, reuseIdentifier: "0")
         }
-        cell.config(with: weatherViewModel, at: indexPath.row)
+        cell.config(with: weekWeatherVM.value, at: indexPath.row)
         return cell
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
