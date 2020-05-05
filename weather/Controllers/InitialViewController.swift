@@ -41,7 +41,9 @@ class InitialViewController: UIViewController {
     @IBOutlet weak var currentTime: UILabel!
     @IBOutlet weak var currentHumidity: UILabel!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var errorText: UILabel!
+    
+    @IBOutlet weak var errorView: UIView!
+    
     @IBOutlet weak var tableView: UITableView!
     // MARK: - 生命周期方法
     override func viewDidLoad() {
@@ -61,6 +63,13 @@ class InitialViewController: UIViewController {
         weatherViewModel = WeatherViewModel()
         super.init(coder: coder)
     }
+    
+    
+    @IBAction func clickRetry(_ sender: Any) {
+        weatherViewModel.initState()
+        self.setupInitialUI()
+        self.requestLocation()
+    }
 }
 
 // MARK: - 网络代理
@@ -71,15 +80,11 @@ extension InitialViewController: WeatherApiDelegate {
     }
     
     func requestError(error: Error) {
-        DispatchQueue.main.async {
-            self.showErrorInfo()
-        }
+        self.weatherViewModel.hasError = true
     }
     
     func handleDataError(error: Error) {
-        DispatchQueue.main.async {
-            self.showErrorInfo()
-        }
+        self.weatherViewModel.hasError = true
     }
     
     func receiveEmptyData() {
@@ -97,6 +102,8 @@ extension InitialViewController: CLLocationManagerDelegate {
             currentLocation = location
             locationManager.delegate = nil
             locationManager.stopUpdatingLocation()
+        } else {
+            weatherViewModel.hasError = true
         }
     }
     
@@ -109,6 +116,7 @@ extension InitialViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        weatherViewModel.hasError = true
         dump(error)
     }
     
@@ -176,6 +184,7 @@ extension InitialViewController {
         CLGeocoder().reverseGeocodeLocation(location) { (placemarks, error) in
             if let err = error {
                 print(err)
+                self.weatherViewModel.hasError = true
                 return
             }
             if let city = placemarks?.first?.locality {
@@ -186,7 +195,7 @@ extension InitialViewController {
     }
     
     private func setupInitialUI() {
-        errorText.isHidden = true
+        errorView.isHidden = true
         tableView.isHidden = true
         currentWeatherContainer.isHidden = true
         loadingIndicator.startAnimating()
@@ -194,7 +203,7 @@ extension InitialViewController {
     }
     
     private func showErrorInfo() {
-        errorText.isHidden = false
+        errorView.isHidden = false
         currentWeatherContainer.isHidden = true
         tableView.isHidden = true
         loadingIndicator.stopAnimating()
@@ -203,14 +212,16 @@ extension InitialViewController {
     private func updateUI() {
         let vm = weatherViewModel
         
-        if vm.dataIsReady {
+        if vm.hasError {
+            showErrorInfo()
+        } else if vm.dataIsReady {
             currentWeatherIcon.image = vm.icon
             currentTime.text = vm.time
             currentWeatherSummary.text = vm.summary
             currentTempure.text  = vm.temperature
             currentHumidity.text = vm.humidity
             cityName.text = vm.cityName
-            errorText.isHidden = true
+            errorView.isHidden = true
             loadingIndicator.stopAnimating()
             currentWeatherContainer.isHidden = false
             tableView.isHidden = false

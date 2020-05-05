@@ -110,12 +110,6 @@
                                     <constraint firstAttribute="height" constant="44" id="CAt-Q7-KJH"/>
                                 </constraints>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="数据加载失败，请尝试重新打开APP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aUB-py-Zj7">
-                                <rect key="frame" x="0.0" y="182" width="414" height="24"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="PL7-JB-L0X">
                                 <rect key="frame" x="0.0" y="344" width="414" height="518"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -200,9 +194,38 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="81X-4l-nc3"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pga-1K-6bp">
+                                <rect key="frame" x="0.0" y="130" width="414" height="100"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something is wrong! You can retry it" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pcl-iP-UCZ">
+                                        <rect key="frame" x="0.0" y="10" width="414" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cnM-Ie-qVs">
+                                        <rect key="frame" x="179.5" y="49" width="55" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="Retry"/>
+                                        <connections>
+                                            <action selector="clickRetry:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jSC-wc-lUd"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="cnM-Ie-qVs" secondAttribute="bottom" constant="10" id="1JB-03-cTE"/>
+                                    <constraint firstItem="pcl-iP-UCZ" firstAttribute="leading" secondItem="Pga-1K-6bp" secondAttribute="leading" id="3dS-Hs-g49"/>
+                                    <constraint firstItem="cnM-Ie-qVs" firstAttribute="centerX" secondItem="Pga-1K-6bp" secondAttribute="centerX" id="5mN-Aj-8ck"/>
+                                    <constraint firstItem="pcl-iP-UCZ" firstAttribute="top" secondItem="Pga-1K-6bp" secondAttribute="top" constant="10" id="5tW-Bq-V6G"/>
+                                    <constraint firstAttribute="trailing" secondItem="pcl-iP-UCZ" secondAttribute="trailing" id="LHP-k1-Ax4"/>
+                                    <constraint firstItem="cnM-Ie-qVs" firstAttribute="top" secondItem="pcl-iP-UCZ" secondAttribute="bottom" constant="10" id="kNI-ml-eIJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Pga-1K-6bp" secondAttribute="trailing" id="3NB-Kv-swC"/>
                             <constraint firstItem="pgl-NV-Ocg" firstAttribute="centerY" secondItem="Sua-1U-tS0" secondAttribute="centerY" id="7iu-3c-gLc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PL7-JB-L0X" secondAttribute="trailing" id="8he-5C-D6u"/>
                             <constraint firstItem="Sua-1U-tS0" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="9yy-DD-4XT"/>
@@ -210,9 +233,8 @@
                             <constraint firstItem="pgl-NV-Ocg" firstAttribute="centerX" secondItem="Sua-1U-tS0" secondAttribute="centerX" id="Emx-Rw-Ro1"/>
                             <constraint firstItem="PL7-JB-L0X" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Gvc-OM-TgP"/>
                             <constraint firstItem="PL7-JB-L0X" firstAttribute="top" secondItem="Sua-1U-tS0" secondAttribute="bottom" id="L5h-BI-DpP"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="aUB-py-Zj7" secondAttribute="trailing" id="X7f-bV-wWr"/>
-                            <constraint firstItem="aUB-py-Zj7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Xwc-o8-oER"/>
-                            <constraint firstItem="aUB-py-Zj7" firstAttribute="centerY" secondItem="Sua-1U-tS0" secondAttribute="centerY" id="jpN-eW-UJw"/>
+                            <constraint firstItem="Pga-1K-6bp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LgS-2T-m6T"/>
+                            <constraint firstItem="Pga-1K-6bp" firstAttribute="top" secondItem="Sua-1U-tS0" secondAttribute="bottom" constant="-214" id="qUp-Hg-kIQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Sua-1U-tS0" secondAttribute="trailing" id="sEW-oo-BGq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PL7-JB-L0X" secondAttribute="bottom" id="v1a-KE-IHh"/>
                         </constraints>
@@ -226,7 +248,7 @@
                         <outlet property="currentWeatherContainer" destination="Sua-1U-tS0" id="yl3-ma-LBk"/>
                         <outlet property="currentWeatherIcon" destination="urZ-uP-FMb" id="Us1-xI-ENn"/>
                         <outlet property="currentWeatherSummary" destination="f6L-19-CcE" id="PLp-p3-iTZ"/>
-                        <outlet property="errorText" destination="aUB-py-Zj7" id="KqG-gd-c2j"/>
+                        <outlet property="errorView" destination="Pga-1K-6bp" id="YhM-zv-7D2"/>
                         <outlet property="loadingIndicator" destination="pgl-NV-Ocg" id="eM9-sQ-KBh"/>
                         <outlet property="tableView" destination="PL7-JB-L0X" id="aEz-EP-Ixq"/>
                     </connections>
@@ -238,7 +260,6 @@
         <!--Location Manager Controller-->
         <scene sceneID="EF0-e6-pBR">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="RJX-JE-3jr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="vxn-Em-DRy" customClass="LocationManagerController" customModule="weather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="aEJ-TU-d2H">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -271,14 +292,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationCell" id="Sh4-uh-0Xj" customClass="LocationCell" customModule="weather" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="49.5"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="49"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Sh4-uh-0Xj" id="UAF-5r-kxU">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="49.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kku-CQ-yr3">
-                                                    <rect key="frame" x="20" y="11" width="53" height="27.5"/>
+                                                    <rect key="frame" x="20" y="11" width="53" height="27"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -318,13 +339,13 @@
                         <outlet property="tableView" destination="zHx-Gh-sJF" id="efb-8V-1j3"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RJX-JE-3jr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="938" y="-165"/>
         </scene>
         <!--Locations-->
         <scene sceneID="A0t-xB-15O">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Gbz-rr-d2B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController title="Locations" id="dOD-M7-YWi" customClass="LocationSearchController" customModule="weather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dys-aX-BwU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
@@ -358,14 +379,14 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="LocationSearchCell" id="TUv-xE-f0H" customClass="LocationSearchCell" customModule="weather" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.5" width="414" height="49"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="414" height="49.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="TUv-xE-f0H" id="tB7-DJ-me5">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gnk-vO-c1L">
-                                                    <rect key="frame" x="20" y="11" width="374" height="27"/>
+                                                    <rect key="frame" x="20" y="11" width="374" height="27.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -410,6 +431,7 @@
                         <outlet property="tableView" destination="Fkq-Uy-y37" id="Cfc-PD-Zld"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Gbz-rr-d2B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1719" y="-165"/>
         </scene>

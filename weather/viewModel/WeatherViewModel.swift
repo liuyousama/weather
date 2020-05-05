@@ -25,7 +25,14 @@ struct WeatherViewModel {
         }
     }
     
+    mutating func initState() {
+        hasError = false
+        locationData = nil
+        currentWeatherData = nil
+        weekWeatherData = nil
+    }
     var dataIsReady:Bool = false
+    var hasError = false
     private mutating func updateReadyStatus() {
         if let _ = locationData, let _ = currentWeatherData, let _ = weekWeatherData {
             dataIsReady = true
