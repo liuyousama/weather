@@ -1,0 +1,13 @@
+# Xcode
+.DS_Store
+build
+report.xml
+xcuserdat
+DerivedData
+.idea/
+*.xcworkspace
+!default.xcworkspace
+#CocoaPods
+Pods
+Podfile.lock
+xcschemes
